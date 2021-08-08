@@ -1,6 +1,8 @@
 # mzm-mysqli
 Example MySQLi Object oriented style
 
+> framework is always more feasible than coding in the pure language.
+
 ```mysql
 
 -- Dumping database structure for db_mysqli

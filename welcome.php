@@ -48,7 +48,7 @@ function logout_form($path, $msg = 'Are you sure you want to log out?')
     <div class="container">
       <div class="card">
         <div class="card-body">
-          <h1>welcome <i><?= $_SESSION['id']; ?></i></h1>
+          <h1>welcome <i><?= $_SESSION['username']; ?></i></h1>
           <ul class="list-unstyled w-25">
             <h6 class="dropdown-header">User</h6>
             <li><a class="dropdown-item" href="lists.php">Users List</a></li>
