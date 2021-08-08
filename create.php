@@ -9,6 +9,18 @@
 * @author     Mohamad Zaki Mustafa <mzm@ns.gov.my>
 */
 
+// Initialize the session
+if (session_status() == PHP_SESSION_NONE) {
+  //session has not started
+  session_start();
+}
+
+// Check if the user is already logged in, if no then redirect him to login page
+if (!isset($_SESSION["loggedin"]) && !$_SESSION["loggedin"]) {
+  header("location: login.php");
+  exit;
+}
+
 // Include config file
 require_once "config.php";
 
@@ -66,7 +78,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     // 5. Attempt to execute the prepared statement
     if ($stmt->execute()) {
       // Redirect to login page
-      header("location: login.php");
+      header("location: lists.php");
       exit();
     } else {
       echo "Oops! Something went wrong. Please try again later!!.";
@@ -100,8 +112,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 <body>
   <div class="container my-5">
     <div class="row">
-      <div class="col-md-3 offset-md-4">
-        <h2>Sign Up</h2>
+      <div class="col-md-4 offset-md-3">
+
+        <h2>Register New User</h2>
         <p>Please fill this form to create an account.</p>
         <form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="post" autocomplete="off">
 
@@ -125,7 +138,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
           <div class="form-group">
             <label>Confirm Password</label>
-            <input type="password" name="confirm_password" class="form-control <?php echo (!empty($confirm_password_err)) ? 'is-invalid' : ''; ?>">
+            <input autocomplete="off" type="password" name="confirm_password" class="form-control <?php echo (!empty($confirm_password_err)) ? 'is-invalid' : ''; ?>">
             <span class="invalid-feedback"><?php echo $confirm_password_err; ?></span>
           </div>
 
@@ -133,7 +146,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             <input type="submit" class="btn btn-primary" value="Submit">
             <input type="reset" class="btn btn-secondary ml-2" value="Reset">
           </div>
-          <p>Already have an account? <a href="login.php">Login here</a>.</p>
+
         </form>
       </div>
     </div>

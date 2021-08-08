@@ -13,6 +13,12 @@
 // Include config file
 require_once "config.php";
 
+// Check if the user is already logged in, if yes then redirect him to welcome page
+if (isset($_SESSION["loggedin"]) && $_SESSION["loggedin"]) {
+  header("location: welcome.php");
+  exit;
+}
+
 // Define variables and initialize with empty values
 $username = $password = ""; // variables value input
 $username_err = $password_err = $login_err = ""; // variables error input
@@ -124,7 +130,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
           echo '<div class="alert alert-danger text-center">' . $login_err . '</div>';
         }
         ?>
-        <form action="<?= $_SERVER['PHP_SELF'] ?>" method="post" name="login" novalidate>
+        <form action="<?= $_SERVER['PHP_SELF'] ?>" method="post" name="login" novalidate autocomplete="off">
           <div class="form-group">
             <label for="exampleInputEmail1">E-mail</label>
             <input type="email" name="username" class="form-control <?= $username_err ? 'is-invalid' : '' ?>" value="<?= $username ? $username : '' ?>">

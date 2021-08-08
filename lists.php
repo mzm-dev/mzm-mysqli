@@ -12,7 +12,7 @@
 // Include config file
 require_once "config.php";
 
-// Check if the user is already logged in, if yes then redirect him to welcome page
+// Check if the user is already logged in, if no then redirect him to login page
 if (!isset($_SESSION["loggedin"]) && !$_SESSION["loggedin"]) {
   header("location: login.php");
   exit;
@@ -47,23 +47,30 @@ if (!isset($_SESSION["loggedin"]) && !$_SESSION["loggedin"]) {
   // 2. Prepare a select statement
   $stmt = $mysqli->prepare($sql);
 
+  // 3. Set parameters
+  //$param_status = 1;
+
+  // 4. Bind variables to the prepared statement as parameters
+  //$stmt->bind_param("s", $param_status);
+
   // 5. Attempt to execute the prepared statement
   if ($stmt->execute()) {
 
     // 6. Get all result
     $result = $stmt->get_result();
-
+   
     // 7. Check if username exists, if yes then verify password
-    if ($result->num_rows == 1) {
+    if ($result->num_rows > 0) {
 
       /* Fetch all result row as an associative array.*/
       $users  = $result->fetch_all(MYSQLI_ASSOC);
+     
     } else {
       // Username doesn't exist, display a generic error message
       $users_err = "Users empty";
     }
   } else {
-    echo "Oops! Something went wrong. Please try again later!!.";
+    $users_err = "Oops! Something went wrong. Please try again later!!.";
     //for development purpose
     echo $stmt->error;
   }
@@ -75,14 +82,18 @@ if (!isset($_SESSION["loggedin"]) && !$_SESSION["loggedin"]) {
     <div class="row">
       <div class="col-md-12">
         <div class="mt-5 mb-3 clearfix">
-          <h2 class="pull-left">Employees Details</h2>
-          <a href="create.php" class="btn btn-success pull-right"><i class="fa fa-plus"></i> Add New Employee</a>
+          <h2 class="pull-left">User List</h2>
+          <a href="create.php" class="btn btn-success pull-right"><i class="fa fa-plus"></i> New User</a>
         </div>
       </div>
     </div>
     <div class="row">
       <div class="col-md-12">
-
+        <?php
+        if (!empty($users_err)) {
+          echo '<div class="alert alert-danger text-center">' . $users_err . '</div>';
+        }
+        ?>
         <table class="table">
           <tr>
             <th>ID</th>
