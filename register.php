@@ -14,7 +14,7 @@ require_once "config.php";
 
 // Define variables and initialize with empty values
 $username = $email = $password = "";
-$username_err = $email_err = $password_err  = "";
+$username_err = $email_err = $password_err = $register_err  = "";
 
 // Processing form data when form is submitted
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
@@ -69,7 +69,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
       header("location: login.php");
       exit();
     } else {
-      echo "Oops! Something went wrong. Please try again later!!.";
+      $register_err = "Oops! Something went wrong. Please try again later!!.";
       //for development purpose
       echo $stmt->error;
     }
@@ -94,50 +94,54 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
   <!-- Bootstrap CSS -->
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css" integrity="sha384-B0vP5xmATw1+K9KRQjQERJvTumQW0nPEzvF6L/Z6nronJ3oUOFUFpCjEUQouq2+l" crossorigin="anonymous">
 
-  <title>Register</title>
+  <title>MySQLi OO Style</title>
 </head>
 
 <body>
-  <div class="container my-5">
-    <div class="row">
-      <div class="col-md-3 offset-md-4">
-        <h2>Sign Up</h2>
-        <p>Please fill this form to create an account.</p>
-        <form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="post" autocomplete="off">
+  <div class="vh-100 d-flex flex-column justify-content-center align-items-center">
+    <div class="col-md-4">
 
-          <div class="form-group">
-            <label>Username</label>
-            <input type="text" name="username" class="form-control <?php echo (!empty($username_err)) ? 'is-invalid' : ''; ?>" value="<?php echo $username; ?>">
-            <?= $username_err ? '<small class="form-text invalid-feedback">' . $username_err . '</small>' : '' ?>
-          </div>
+      <div class="card">
+        <div class="card-body">
+          <?php echo !empty($register_err) ? '<div class="alert alert-danger text-center">' . $register_err . '</div>' : ''; ?>
+          <h2>Sign Up</h2>
+          <p>Please fill this form to create an account.</p>
+          <form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="post" autocomplete="off">
 
-          <div class="form-group">
-            <label>Email</label>
-            <input type="email" name="email" class="form-control <?php echo (!empty($email_err)) ? 'is-invalid' : ''; ?>" value="<?php echo $email; ?>">
-            <?= $email_err ? '<small class="form-text invalid-feedback">' . $email_err . '</small>' : '' ?>
-          </div>
+            <div class="form-group">
+              <label>Username</label>
+              <input type="text" name="username" class="form-control <?php echo (!empty($username_err)) ? 'is-invalid' : ''; ?>" value="<?php echo $username; ?>">
+              <?= $username_err ? '<small class="form-text invalid-feedback">' . $username_err . '</small>' : '' ?>
+            </div>
 
-          <div class="form-group">
-            <label>Password</label>
-            <input type="password" name="password" class="form-control <?php echo (!empty($password_err)) ? 'is-invalid' : ''; ?>">
-            <?= $password_err ? '<small class="form-text invalid-feedback">' . $password_err . '</small>' : '' ?>
-          </div>
+            <div class="form-group">
+              <label>Email</label>
+              <input type="email" name="email" class="form-control <?php echo (!empty($email_err)) ? 'is-invalid' : ''; ?>" value="<?php echo $email; ?>">
+              <?= $email_err ? '<small class="form-text invalid-feedback">' . $email_err . '</small>' : '' ?>
+            </div>
 
-          <div class="form-group">
-            <label>Confirm Password</label>
-            <input type="password" name="confirm_password" class="form-control <?php echo (!empty($confirm_password_err)) ? 'is-invalid' : ''; ?>">
-            <span class="invalid-feedback"><?php echo $confirm_password_err; ?></span>
-          </div>
+            <div class="form-group">
+              <label>Password</label>
+              <input type="password" name="password" class="form-control <?php echo (!empty($password_err)) ? 'is-invalid' : ''; ?>">
+              <?= $password_err ? '<small class="form-text invalid-feedback">' . $password_err . '</small>' : '' ?>
+            </div>
 
-          <div class="form-group">
-            <input type="submit" class="btn btn-primary" value="Submit">
-            <input type="reset" class="btn btn-secondary ml-2" value="Reset">
-          </div>
-          <p>Already have an account? <a href="login.php">Login here</a>.</p>
-        </form>
-      </div>
-    </div>
-  </div>
+            <div class="form-group">
+              <label>Confirm Password</label>
+              <input type="password" name="confirm_password" class="form-control <?php echo (!empty($confirm_password_err)) ? 'is-invalid' : ''; ?>">
+              <span class="invalid-feedback"><?php echo $confirm_password_err; ?></span>
+            </div>
+
+            <div class="form-group">
+              <input type="submit" class="btn btn-primary" value="Submit">
+              <input type="reset" class="btn btn-secondary ml-2" value="Reset">
+            </div>
+            <p>Already have an account? <a href="login.php">Login here</a>.</p>
+          </form><!-- form -->
+        </div><!-- card-body -->
+      </div><!-- body -->
+    </div><!-- col-md-4 -->
+  </div><!-- div -->
 </body>
 
 </html>

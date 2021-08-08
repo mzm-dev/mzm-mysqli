@@ -10,7 +10,7 @@ if (session_status() == PHP_SESSION_NONE) {
 server with default setting (user 'root' with no password) */
 define('DB_SERVER', 'localhost');
 define('DB_USERNAME', 'root');
-define('DB_PASSWORD', '');
+define('DB_PASSWORD', 'password');
 define('DB_NAME', 'db_mysqli');
  
 /* Attempt to connect to MySQL database */
