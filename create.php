@@ -43,8 +43,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
   // Validate password
   if (empty(trim($_POST["email"]))) {
     $email_err = "Please enter a email.";
-  } elseif (strlen(trim($_POST["email"])) < 6) {
-    $email_err =  "Please enter email.";
+  } else if (!filter_input(INPUT_POST, 'email', FILTER_VALIDATE_EMAIL)) {
+    $email_err = "Email address not valid";
   } else {
     $email = trim($_POST["email"]);
   }

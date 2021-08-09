@@ -31,6 +31,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
   // Check if username is empty
   if (empty(trim($_POST["username"]))) {
     $username_err = "Please enter username.";
+  } else if (!filter_input(INPUT_POST, 'username', FILTER_VALIDATE_EMAIL)) {
+    $username_err = "Email address not valid";
   } else {
     $username = trim($_POST["username"]);
   }
