@@ -62,6 +62,8 @@ if ($stmt->execute()) {
   //for development purpose
   echo $stmt->error;
 }
+// Close statement
+$stmt->close();
 
 // Close connection
 $mysqli->close();

@@ -1,4 +1,4 @@
-# mzm-mysqli
+# MZM MySQLi
 Example MySQLi Object oriented style
 
 > framework is always more feasible than coding in the pure language.

@@ -26,8 +26,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $stmt = $mysqli->prepare($sql);
 
         // 3. Set parameters        
-        $param_id = $_POST["value"];        
-        $param_myid = $_SESSION["id"];        
+        $param_id = $_POST["value"];      
 
         // 4. Bind variables to the prepared statement as parameters
         $stmt->bind_param("i", $param_id);
